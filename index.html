@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>David Chen | Technology Leader & AI Investor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark: #1a1a1a;
+            --gray: #6b7280;
+            --light: #f9fafb;
+            --white: #ffffff;
+            --border: #e5e7eb;
+            --accent: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--white);
+            min-height: calc(100vh - 73px);
+            display: flex;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .avatar {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-info {
+            padding-top: 0;
+        }
+
+        .hero h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -1.5px;
+            color: var(--dark);
+            line-height: 1.1;
+        }
+
+        .hero .title {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .hero .email {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--light);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 24px;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--white);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 20px;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .stat-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-number.animate {
+            animation: countUp 0.6s ease-out forwards;
+        }
+
+        /* Scroll animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+        .delay-500 { transition-delay: 0.5s; }
+        .delay-600 { transition-delay: 0.6s; }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 16px;
+            margin-bottom: 48px;
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: var(--gray);
+            margin-bottom: 16px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .skill-item {
+            background: var(--light);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .skill-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--dark);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        /* Experience */
+        .timeline {
+            position: relative;
+            padding-left: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 0;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-date {
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .timeline-company {
+            color: var(--gray);
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-desc {
+            color: var(--gray);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        /* Achievements */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .achievement-card {
+            background: var(--light);
+            padding: 32px 24px;
+        }
+
+        .achievement-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--dark);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .achievement-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .achievement-desc {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Investment Focus */
+        .investment-areas {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .investment-card {
+            background: var(--white);
+            padding: 24px 16px;
+            text-align: center;
+        }
+
+        .investment-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .investment-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .investment-desc {
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        /* Contact */
+        .contact-section {
+            background: var(--light);
+            text-align: center;
+            border-bottom: none;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--dark);
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .contact-btn:hover {
+            background-color: #333;
+        }
+
+        .contact-btn.outline {
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .contact-btn.outline:hover {
+            background-color: var(--light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 40px 0;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: auto;
+                padding: 60px 0;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                align-items: start;
+            }
+
+            .avatar {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero .email {
+                justify-content: center;
+            }
+
+            .hero-tags {
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .hero-tag {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-content,
+            .skills-grid,
+            .achievements-grid,
+            .investment-areas {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">DC</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                    <li><a href="#investments">Investments</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="avatar">
+                    <img src="vick.jpg" alt="David Chen">
+                </div>
+                <div class="hero-info">
+                    <h1>David Chen</h1>
+                    <p class="title">Technology Visionary • AI Investor • Strategic Advisor</p>
+                    <div class="email">
+                        ✉️ david.chen@example.com
+                    </div>
+                    <div class="hero-tags">
+                        <span class="hero-tag">📍 San Francisco</span>
+                        <span class="hero-tag">💰 Angel Investor</span>
+                        <span class="hero-tag">🎯 Board Advisor</span>
+                        <span class="hero-tag">📝 Bestselling Author</span>
+                    </div>
+                    <div class="stats">
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="15">0</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="40">0</div>
+                            <div class="stat-label">Companies Invested</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-prefix="$" data-target="500" data-suffix="M+">0</div>
+                            <div class="stat-label">Portfolio Value</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-target="3">0</div>
+                            <div class="stat-label">Exits</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title fade-in-up">About Me</h2>
+            <p class="section-subtitle fade-in-up delay-100">Passionate about leveraging technology to create transformative change</p>
+            <div class="about-content">
+                <div class="about-text fade-in-up delay-200">
+                    <p>I'm a technology entrepreneur and angel investor with over 15 years of experience building and scaling innovative companies. My journey spans from engineering leadership to strategic investing, with a focus on artificial intelligence, machine learning, and enterprise technology.</p>
+                    <p>Currently, I serve as Managing Partner at Horizon Ventures, where I lead investments in early-stage AI and deep tech startups. I'm also an active advisor to several Fortune 500 companies on their digital transformation strategies.</p>
+                    <p>I believe in the power of technology to solve humanity's biggest challenges and am committed to supporting founders who share this vision.</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item fade-in-up delay-300">
+                        <div class="skill-icon">🤖</div>
+                        <div class="skill-name">Artificial Intelligence</div>
+                    </div>
+                    <div class="skill-item fade-in-up delay-400">
+                        <div class="skill-icon">☁️</div>
+                        <div class="skill-name">Cloud Architecture</div>
+                    </div>
+                    <div class="skill-item fade-in-up delay-500">
+                        <div class="skill-icon">📊</div>
+                        <div class="skill-name">Venture Capital</div>
+                    </div>
+                    <div class="skill-item fade-in-up delay-300">
+                        <div class="skill-icon">💡</div>
+                        <div class="skill-name">Product Strategy</div>
+                    </div>
+                    <div class="skill-item fade-in-up delay-400">
+                        <div class="skill-icon">🎯</div>
+                        <div class="skill-name">Executive Leadership</div>
+                    </div>
+                    <div class="skill-item fade-in-up delay-500">
+                        <div class="skill-icon">🔐</div>
+                        <div class="skill-name">Enterprise Security</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Experience</h2>
+            <p class="section-subtitle fade-in-up delay-100">A journey of innovation and leadership</p>
+            <div class="timeline">
+                <div class="timeline-item fade-in-up delay-200">
+                    <div class="timeline-date">2020 - Present</div>
+                    <div class="timeline-title">Managing Partner</div>
+                    <div class="timeline-company">Horizon Ventures • San Francisco, CA</div>
+                    <div class="timeline-desc">Leading a $200M venture fund focused on AI, enterprise software, and deep technology investments. Portfolio includes 3 unicorns and 8 companies that have successfully exited through IPO or acquisition.</div>
+                </div>
+                <div class="timeline-item fade-in-up delay-300">
+                    <div class="timeline-date">2016 - 2020</div>
+                    <div class="timeline-title">Chief Technology Officer</div>
+                    <div class="timeline-company">NeuralScale AI • Palo Alto, CA</div>
+                    <div class="timeline-desc">Built and led a 120-person engineering team to develop an enterprise AI platform. Scaled the company from seed to $100M ARR, leading to acquisition by Google Cloud in 2020.</div>
+                </div>
+                <div class="timeline-item fade-in-up delay-400">
+                    <div class="timeline-date">2012 - 2016</div>
+                    <div class="timeline-title">VP of Engineering</div>
+                    <div class="timeline-company">CloudForge Technologies • Seattle, WA</div>
+                    <div class="timeline-desc">Oversaw cloud infrastructure products serving 500+ enterprise customers. Led technical due diligence for 3 acquisitions and grew the engineering team from 20 to 80 engineers.</div>
+                </div>
+                <div class="timeline-item fade-in-up delay-500">
+                    <div class="timeline-date">2008 - 2012</div>
+                    <div class="timeline-title">Senior Software Engineer</div>
+                    <div class="timeline-company">Microsoft • Redmond, WA</div>
+                    <div class="timeline-desc">Contributed to Azure cloud platform development. Held 4 patents in distributed systems and cloud architecture. Received Microsoft Technical Excellence Award in 2011.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Achievements & Recognition</h2>
+            <p class="section-subtitle fade-in-up delay-100">Making a lasting impact in technology and society</p>
+            <div class="achievements-grid">
+                <div class="achievement-card fade-in-up delay-200">
+                    <div class="achievement-icon">🏆</div>
+                    <div class="achievement-title">Forbes 40 Under 40</div>
+                    <div class="achievement-desc">Recognized as one of the top young investors and entrepreneurs transforming the technology landscape in 2022.</div>
+                </div>
+                <div class="achievement-card fade-in-up delay-300">
+                    <div class="achievement-icon">🎓</div>
+                    <div class="achievement-title">Board Member</div>
+                    <div class="achievement-desc">Serving on the board of AI4ALL, a nonprofit dedicated to increasing diversity and inclusion in artificial intelligence.</div>
+                </div>
+                <div class="achievement-card fade-in-up delay-400">
+                    <div class="achievement-icon">📚</div>
+                    <div class="achievement-title">Published Author</div>
+                    <div class="achievement-desc">Author of "The AI Advantage: How Machine Learning is Reshaping Business" - bestselling book on enterprise AI adoption.</div>
+                </div>
+                <div class="achievement-card fade-in-up delay-500">
+                    <div class="achievement-icon">🌟</div>
+                    <div class="achievement-title">TechCrunch Disrupt Winner</div>
+                    <div class="achievement-desc">Won the TechCrunch Disrupt SF competition in 2018 for NeuralScale AI's breakthrough deep learning platform.</div>
+                </div>
+                <div class="achievement-card fade-in-up delay-200">
+                    <div class="achievement-icon">💬</div>
+                    <div class="achievement-title">Keynote Speaker</div>
+                    <div class="achievement-desc">Delivered keynotes at Web Summit, Slush, and AI World Conference on the future of artificial intelligence and investment.</div>
+                </div>
+                <div class="achievement-card fade-in-up delay-300">
+                    <div class="achievement-icon">🌍</div>
+                    <div class="achievement-title">Social Impact</div>
+                    <div class="achievement-desc">Founded the Chen Family Foundation, providing STEM education scholarships to underprivileged students across 10 countries.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Focus Section -->
+    <section id="investments">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Investment Focus</h2>
+            <p class="section-subtitle fade-in-up delay-100">Where I see the future of technology</p>
+            <div class="investment-areas">
+                <div class="investment-card fade-in-up delay-200">
+                    <div class="investment-icon">🧠</div>
+                    <div class="investment-name">Generative AI</div>
+                    <div class="investment-desc">LLMs, content generation</div>
+                </div>
+                <div class="investment-card fade-in-up delay-250">
+                    <div class="investment-icon">🔗</div>
+                    <div class="investment-name">Web3 & Blockchain</div>
+                    <div class="investment-desc">DeFi, decentralized infrastructure</div>
+                </div>
+                <div class="investment-card fade-in-up delay-300">
+                    <div class="investment-icon">🧬</div>
+                    <div class="investment-name">Biotech</div>
+                    <div class="investment-desc">Drug discovery, medicine</div>
+                </div>
+                <div class="investment-card fade-in-up delay-350">
+                    <div class="investment-icon">🛡️</div>
+                    <div class="investment-name">Cybersecurity</div>
+                    <div class="investment-desc">Zero-trust architecture</div>
+                </div>
+                <div class="investment-card fade-in-up delay-400">
+                    <div class="investment-icon">🚀</div>
+                    <div class="investment-name">Space Tech</div>
+                    <div class="investment-desc">Satellite communications</div>
+                </div>
+                <div class="investment-card fade-in-up delay-450">
+                    <div class="investment-icon">⚡</div>
+                    <div class="investment-name">Clean Energy</div>
+                    <div class="investment-desc">Battery tech, renewable energy</div>
+                </div>
+                <div class="investment-card fade-in-up delay-500">
+                    <div class="investment-icon">🏥</div>
+                    <div class="investment-name">Digital Health</div>
+                    <div class="investment-desc">Remote care, diagnostics</div>
+                </div>
+                <div class="investment-card fade-in-up delay-550">
+                    <div class="investment-icon">🤝</div>
+                    <div class="investment-name">Future of Work</div>
+                    <div class="investment-desc">Collaboration, productivity</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Let's Connect</h2>
+            <p class="section-subtitle fade-in-up delay-100">Open to discussing investments, partnerships, and speaking opportunities</p>
+            <div class="contact-links">
+                <a href="mailto:david.chen@example.com" class="contact-btn fade-in-up delay-200">
+                    ✉️ Email Me
+                </a>
+                <a href="https://linkedin.com" class="contact-btn outline fade-in-up delay-300" target="_blank">
+                    💼 LinkedIn
+                </a>
+                <a href="https://twitter.com" class="contact-btn outline fade-in-up delay-400" target="_blank">
+                    🐦 Twitter
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 David Chen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Number counter animation
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const prefix = element.getAttribute('data-prefix') || '';
+            const suffix = element.getAttribute('data-suffix') || '+';
+            const duration = 2000; // 2 seconds
+            const start = 0;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Easing function for smooth animation
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(start + (target - start) * easeOutQuart);
+
+                element.textContent = prefix + current + suffix;
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    // Add animation class when complete
+                    element.classList.add('animate');
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // Intersection Observer to trigger animation when stats are visible
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statCards = entry.target.querySelectorAll('.stat-card');
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+
+                    // Animate cards first
+                    statCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('show');
+                        }, index * 100);
+                    });
+
+                    // Then animate numbers
+                    statNumbers.forEach((number, index) => {
+                        setTimeout(() => {
+                            animateCounter(number);
+                        }, 400 + index * 150);
+                    });
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Start observing when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const statsSection = document.querySelector('.stats');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+
+            // Scroll animation for fade-in-up elements
+            const fadeObserverOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        fadeObserver.unobserve(entry.target);
+                    }
+                });
+            }, fadeObserverOptions);
+
+            // Observe all fade-in-up elements
+            const fadeElements = document.querySelectorAll('.fade-in-up');
+            fadeElements.forEach(el => {
+                fadeObserver.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
